@@ -1,0 +1,43 @@
+// server.js
+require('dotenv').config();
+const path = require('path');
+const express = require('express');
+const expressLayouts = require('express-ejs-layouts');
+
+const apiLinksRouter = require('./src/routes/apiLinks');
+const pagesRouter = require('./src/routes/pages');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Body parsers
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Static files
+app.use(express.static(path.join(__dirname, 'public')));
+
+// View engine
+app.set('view engine', 'ejs');
+app.set('views', 'C:\\ChiisaiURL\\tinylink\\views');
+
+app.use(expressLayouts);
+app.set('layout', 'layout');
+
+// Healthcheck - GET /healthz
+app.get('/healthz', (req, res) => {
+  res.status(200).json({ ok: true, version: '1.0' });
+});
+
+// API routes (must match spec)
+app.use('/api', apiLinksRouter);
+
+// Page routes (dashboard, stats, redirect)
+app.use('/', pagesRouter);
+
+app.listen(PORT, () => {
+  console.log(`TinyLink listening on port ${PORT}`);
+});
+
+app.locals.formatIST = (date) =>
+  date ? date.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : null;

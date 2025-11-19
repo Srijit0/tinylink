@@ -1,0 +1,47 @@
+
+<section class="space-y-4">
+  <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 md:p-6">
+    <h1 class="text-xl font-semibold mb-2">Stats for <code><%= link.code %></code></h1>
+
+    <p class="text-sm text-slate-300 mb-4">
+      Short URL:
+      <a
+        href="/<%= link.code %>"
+        class="text-indigo-400 hover:underline break-all"
+        target="_blank"
+      >
+        <%= baseUrl %>/<%= link.code %>
+      </a>
+    </p>
+
+    <dl class="grid md:grid-cols-2 gap-4 text-sm">
+      <div>
+        <dt class="text-slate-400">Target URL</dt>
+        <dd class="break-all"><%= link.target_url %></dd>
+      </div>
+      <div>
+        <dt class="text-slate-400">Total clicks</dt>
+        <dd><%= link.total_clicks %></dd>
+      </div>
+      <div>
+        <dt class="text-slate-400">Last clicked</dt>
+        <dd><%= link.last_clicked_at 
+          ? link.last_clicked_at.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) : 'Never' %></dd>
+      </div>
+      <div>
+        <dt class="text-slate-400">Created</dt>
+        <dd><%= link.created_at.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) %>
+        </dd>
+      </div>
+    </dl>
+
+    <div class="mt-4">
+      <a
+        href="/"
+        class="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-600 text-sm"
+      >
+        ← Back to dashboard
+      </a>
+    </div>
+  </div>
+</section>
