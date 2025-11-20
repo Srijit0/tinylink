@@ -26,7 +26,7 @@ app.set('layout', 'layout');
 
 // Healthcheck - GET /healthz
 app.get('/healthz', (req, res) => {
-  res.status(200).json({ ok: true, version: '1.0' });
+  res.status(200).json({ code: 200, message: 'OK', version: '1.0' });
 });
 
 // API routes (must match spec)
